@@ -51,7 +51,6 @@ while game_mode == "Playing":
     print(
         f"You are located {player.current_room.name}. {player.current_room.description}")
 
-
 # Waits for user input and decides what to do.
     choice = input(
         "Choose a direction :[n] North, [s] South, [e] East, [w] West, or [q] Quit game")
@@ -60,7 +59,7 @@ while game_mode == "Playing":
         game_mode = "Not playing"
 # If the user enters a cardinal direction, attempt to move to the room there.
     elif choice == "n":
-        if player.current_room.n_to:
+        if player.current_room.n_to != None:
             player.current_room = player.current_room.n_to
         else:
             print("You can't go that way. Please try another direction.")
