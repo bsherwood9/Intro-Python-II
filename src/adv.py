@@ -41,7 +41,7 @@ room['treasure'].s_to = room['narrow']
 # Make a new player object that is currently in the 'outside' room.
 game_mode = "Playing"
 player = Player(input("What is your name, champion?"),
-                "Human", "None", "outside")
+                "Human", "None", room["outside"])
 
 # Write a loop that:
 print(f"Welcome to your walk through Hell, {player.name}")
@@ -49,7 +49,7 @@ while game_mode == "Playing":
     # Prints the current room name
     # Prints the current description (the textwrap module might be useful here).
     print(
-        f"You are located {room[player.current_room][]}. {room[player.current_room].description}.")
+        f"You are located {player.current_room.name}. {player.current_room.description}")
 
 
 # Waits for user input and decides what to do.
@@ -60,14 +60,25 @@ while game_mode == "Playing":
         game_mode = "Not playing"
 # If the user enters a cardinal direction, attempt to move to the room there.
     elif choice == "n":
-        player.current_room = room[player.current_room].n_to
-        print(player.current_room.name)
+        if player.current_room.n_to:
+            player.current_room = player.current_room.n_to
+        else:
+            print("You can't go that way. Please try another direction.")
     elif choice == "s":
-        print("s")
+        if player.current_room.s_to:
+            player.current_room = player.current_room.s_to
+        else:
+            print("You can't go that way. Please try another direction.")
     elif choice == "e":
-        print("e")
+        if player.current_room.e_to:
+            player.current_room = player.current_room.e_to
+        else:
+            print("You can't go that way. Please try another direction.")
     elif choice == "w":
-        print("w")
+        if player.current_room.w_to:
+            player.current_room = player.current_room.w_to
+        else:
+            print("You can't go that way. Please try another direction.")
     else:
         print("Please enter a valid command.")
 
