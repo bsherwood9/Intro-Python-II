@@ -69,6 +69,7 @@ while game_mode == "Playing":
             player.current_room = player.current_room.s_to
         else:
             print("You can't go that way. Please try another direction.")
+
     elif choice == "e":
         if player.current_room.e_to:
             player.current_room = player.current_room.e_to
