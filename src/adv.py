@@ -93,16 +93,20 @@ while game_mode == "Playing":
             print("Please enter a valid command.")
     else:
         if stuff[0].lower() == "take" or stuff[0].lower() == "grab":
-            index_item = ([item.name for item in player.current_room.items].index(
-                stuff[1].capitalize()))
-            player.grab_item(player.current_room.items[index_item])
-            print(player.inventory[0])
+            if [item.name for item in player.current_room.items if item.name == stuff[1].capitalize()]:
+                index_item = ([item.name for item in player.current_room.items].index(
+                    stuff[1].capitalize()))
+                player.grab_item(player.current_room.items[index_item])
+                print(player.inventory[0])
+            else:
+                print("You don't see that item in this room")
+
         elif stuff[0].lower() == "drop":
             index_item_drop = ([item.name for item in player.inventory].index(
                 stuff[1].capitalize()))
             player.remove_item(player.inventory[index_item_drop])
         else:
-            print("That item doesn't exist")
+            print("That action isn't possible.")
             # for stuff[1].lower() in player.current_room.items
             # player.grab_item()
 # Print an error message if the movement isn't allowed.
