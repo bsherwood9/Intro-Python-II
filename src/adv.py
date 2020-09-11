@@ -62,9 +62,9 @@ while game_mode == "Playing":
 # Waits for user input and decides what to do.
     choice = input(
         "Either choose a direction :[n] North, [s] South, [e] East, [w] West, or [q] Quit game or take an action")
-    stuff = choice.split()
+    search = choice.split()
 # If the user enters "q", quit the game.
-    if len(stuff) == 1:
+    if len(search) == 1:
         if choice == "q":
             game_mode = "Not playing"
     # If the user enters a cardinal direction, attempt to move to the room there.
@@ -92,22 +92,31 @@ while game_mode == "Playing":
         else:
             print("Please enter a valid command.")
     else:
-        if stuff[0].lower() == "take" or stuff[0].lower() == "grab":
-            if [item.name for item in player.current_room.items if item.name == stuff[1].capitalize()]:
-                index_item = ([item.name for item in player.current_room.items].index(
-                    stuff[1].capitalize()))
-                player.grab_item(player.current_room.items[index_item])
-                print(player.inventory[0])
+        if search[0].lower() in ["take", "grab"]:
+            search_item = search[1].capitalize()
+            for item in player.current_room.items:
+                if item.name == search_item:
+                    player.grab_item(item)
+                    break
             else:
                 print("You don't see that item in this room")
 
-        elif stuff[0].lower() == "drop":
-            index_item_drop = ([item.name for item in player.inventory].index(
-                stuff[1].capitalize()))
-            player.remove_item(player.inventory[index_item_drop])
+        elif search[0].lower() == "drop":
+            search_item = search[1].capitalize()
+            for item in player.inventory:
+                if item.name == search_item:
+                    player.remove_item(item)
+                    break
+            else:
+                print("You don't currently have that item.")
         else:
             print("That action isn't possible.")
             # for stuff[1].lower() in player.current_room.items
             # player.grab_item()
 # Print an error message if the movement isn't allowed.
 #
+# if [item.name for item in player.current_room.items if item.name == search[1].capitalize()]:
+            #     index_item = ([item.name for item in player.current_room.items].index(
+            #         search[1].capitalize()))
+            #     player.grab_item(player.current_room.items[index_item])
+            #     print(player.inventory[0])
